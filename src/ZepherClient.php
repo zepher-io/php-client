@@ -9,6 +9,7 @@
  * Caching is experimental. The structure herein is ready once the API logic is complete.
  */
 
+namespace Zepher\PHPClient;
 
 use SQLite3;
 
