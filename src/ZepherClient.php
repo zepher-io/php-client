@@ -102,6 +102,7 @@ class ZepherClient
         return $this->processResponse($response, $uri);
     }
 
+
     public function delete(string $uri): array
     {
         $ch = curl_init($uri);
@@ -131,7 +132,6 @@ class ZepherClient
     }
 
 
-
     private function processResponse($response, $uri): array
     {
         $php = json_decode($response, true);
@@ -142,7 +142,7 @@ class ZepherClient
 
             $this->sqlite->exec("insert or replace into `cache` (`uri`, `jwt`, `response`) values ('{$uri}', '{$php['jwt']}', '{$response}')");
 
-            \DeLoachTech\AppCore\setcookie('zepher-jwt', $php['jwt'], 0, "/");
+            setcookie('zepher-jwt', $php['jwt'], 0, "/");
             $_COOKIE['zepher-jwt'] = $php['jwt'];
         }
 
@@ -158,7 +158,8 @@ class ZepherClient
      * Destroys the current JWT forcing a login.
      * @return void
      */
-    public static function logout(){
+    public static function logout()
+    {
         \DeLoachTech\AppCore\setcookie('zepher-jwt', null, -1, '/');
         unset($_COOKIE['zepher-jwt']);
     }
@@ -191,15 +192,15 @@ class ZepherClient
      */
     public static function validateAccess(string $features, string $permissions = '*'): bool
     {
-        $permissions = str_replace([" ",","],["","|"],$permissions);
+        $permissions = str_replace([" ", ","], ["", "|"], $permissions);
 
         foreach (explode(',', $features) as $feature) {
-            if ($feature == '*' || isset(self::$env['access']['features'][trim($feature," ")])) {
+            if ($feature == '*' || isset(self::$env['access']['features'][trim($feature, " ")])) {
                 if ($permissions == '*') {
                     return true;
                 }
                 else {
-                    return preg_match("/$permissions/i", self::$env['access']['features'][trim($feature," ")]) === 1;
+                    return preg_match("/$permissions/i", self::$env['access']['features'][trim($feature, " ")]) === 1;
                 }
             }
         }
