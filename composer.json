@@ -1,0 +1,14 @@
+{
+  "name": "zepher-io/php-client",
+  "description": "A PHP client for accessing the Zepher.io API.",
+  "type": "library",
+  "license": "MIT",
+  "require": {
+    "php": ">=7.3.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "ZepherClient\\": "src/"
+    }
+  }
+}
