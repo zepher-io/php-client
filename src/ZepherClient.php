@@ -136,7 +136,7 @@ class ZepherClient
     {
         $php = json_decode($response, true);
 
-        self::$env = $php['env'];
+        self::$env = $php['env']??[];
 
         if (!empty($php['jwt'])) {
 
