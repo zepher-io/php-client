@@ -136,6 +136,12 @@ class ZepherClient
     {
         $php = json_decode($response, true);
 
+        if(!empty($php['error'])){
+            if($php['error']['code'] == 410){
+                throw new \RuntimeException($php['error']['message'], $php['error']['code']);
+            }
+        }
+
         self::$env = $php['env']??[];
 
         if (!empty($php['jwt'])) {
