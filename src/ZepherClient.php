@@ -166,7 +166,7 @@ class ZepherClient
      */
     public static function logout()
     {
-        \DeLoachTech\AppCore\setcookie('zepher-jwt', null, -1, '/');
+        setcookie('zepher-jwt', null, -1, '/');
         unset($_COOKIE['zepher-jwt']);
     }
 
